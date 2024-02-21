@@ -10,6 +10,14 @@
 		"format": "prettier \"src/**/*.ts\" --write --config .prettierrc",
 		"lint": "eslint --fix ."
 	},
+	"keywords": [
+		"api",
+		"aws",
+		"node",
+		"aws-lambda",
+		"serverless",
+		"serverless-framework"
+	],
 	"dependencies": {
 		"@aws-sdk/client-dynamodb": "^3.515.0",
 		"@aws-sdk/lib-dynamodb": "^3.515.0",
