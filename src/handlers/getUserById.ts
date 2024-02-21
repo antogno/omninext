@@ -31,7 +31,7 @@ export const handler = async (
 			const { id, name, surname, username } = Item;
 
 			return {
-				statusCode: 200,
+				statusCode: StatusCodes.OK,
 				headers: { 'content-type': 'application/json' },
 				body: JSON.stringify({ id, name, surname, username }),
 			};
