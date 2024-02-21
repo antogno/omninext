@@ -13,3 +13,4 @@ This is the Markdown TODO file for [Omninext](https://github.com/antogno/omninex
 - [ ] Add client params validation with [Zod](https://github.com/colinhacks/zod)
 - [ ] Use a proper logger like [Winston](https://github.com/winstonjs/winston)
 - [ ] Use Docker
+- [ ] Wrap endpoint responses structure in a function to prevent code duplication
