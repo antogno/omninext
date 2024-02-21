@@ -1,0 +1,6 @@
+.DS_Store
+.dynamodb
+.env
+.esbuild
+.serverless
+node_modules

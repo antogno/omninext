@@ -1,0 +1,65 @@
+# org: antogno
+# app: omninext
+service: api
+frameworkVersion: '3'
+
+custom:
+  tableName: '${sls:stage}_Users'
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+          Resource:
+            - Fn::GetAtt: [UsersTable, Arn]
+  environment:
+    STAGE: ${sls:stage}
+    TABLE_NAME: ${self:custom.tableName}
+
+functions:
+  getUserById:
+    handler: src/handlers/getUserById.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /api/getUserById/{id}
+  createUser:
+    handler: src/handlers/createUser.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /api/createUser
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}
+
+plugins:
+  - serverless-esbuild
+  - serverless-dynamodb
+  - serverless-offline

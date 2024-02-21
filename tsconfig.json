@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"lib": ["es2022"],
+		"module": "es2022",
+		"moduleResolution": "Bundler",
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"target": "es2022",
+		"strict": true
+	},
+	"include": ["src/**/*.ts"]
+}
