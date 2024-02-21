@@ -90,7 +90,7 @@ Lastly, run:
 $ npm run deploy
 ```
 
-Now you should be able to access the API through a link similar to [https://tly366tykj.execute-api.us-east-1.amazonaws.com](https://tly366tykj.execute-api.us-east-1.amazonaws.com).
+Now you should be able to access the API through a URL similar to [https://tly366tykj.execute-api.us-east-1.amazonaws.com](https://tly366tykj.execute-api.us-east-1.amazonaws.com).
 
 ## License
 
