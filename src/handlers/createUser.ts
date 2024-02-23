@@ -1,7 +1,7 @@
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
 import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
 import env from '../config/env';
-import dynamoDbClient from '../database/client';
+import dynamoDbClient from '../config/database';
 import { StatusCodes } from 'http-status-codes';
 import { v4 as uuidv4 } from 'uuid';
 
