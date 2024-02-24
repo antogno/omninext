@@ -14,7 +14,6 @@ Simple AWS Lambda REST API in Node.js with Serverless.
 
 - [Usage](#usage)
 - [Deploy](#deploy)
-- [API](#api)
 - [License](#license)
 
 ## Usage
@@ -92,96 +91,6 @@ $ npm run deploy
 ```
 
 Now you should be able to access the API through a URL similar to [https://tly366tykj.execute-api.us-east-1.amazonaws.com](https://tly366tykj.execute-api.us-east-1.amazonaws.com).
-
-## API
-
-### getUserById
-
-Returns the user with the provided ID, if exists.
-
-```plaintext
-GET /api/getUserById/{id}
-```
-
-Supported path parameters:
-
-| Parameter | Type | Required |
-| --------- | ---- | -------- |
-| `id`      | uuid | Yes      |
-
-If successful, returns `200` and the following
-response properties:
-
-| Parameter  | Type   |
-| ---------- | ------ |
-| `id`       | uuid   |
-| `name`     | string |
-| `surname`  | string |
-| `username` | string |
-
-Example request:
-
-```shell
-curl --request GET \
-  --url http://localhost:3000/api/getUserById/4aa38d24-1a69-4f2b-bd92-a1a7debc1d04
-```
-
-Example response:
-
-```json
-{
-	"id": "4aa38d24-1a69-4f2b-bd92-a1a7debc1d04",
-	"name": "John",
-	"surname": "Doe",
-	"username": "johndoe"
-}
-```
-
-### createUser
-
-Creates an user with the provided data.
-
-```plaintext
-POST /api/createUser
-```
-
-Supported body parameters:
-
-| Parameter  | Type   | Required |
-| ---------- | ------ | -------- |
-| `name`     | string | Yes      |
-| `surname`  | string | Yes      |
-| `username` | string | Yes      |
-
-If successful, returns `201` and the following
-response properties:
-
-| Parameter  | Type   |
-| ---------- | ------ |
-| `id`       | uuid   |
-| `name`     | string |
-| `surname`  | string |
-| `username` | string |
-
-Example request:
-
-```shell
-curl --request POST \
-  --url http://localhost:3000/api/createUser \
-  -H 'Content-Type: application/json' \
-  -d '{"name":"Foo","surname":"Bar","username":"foobar"}'
-```
-
-Example response:
-
-```json
-{
-	"id": "ee62bd22-dffd-41f1-b849-05622795de80",
-	"name": "Foo",
-	"surname": "Bar",
-	"username": "foobar"
-}
-```
 
 ## License
 
