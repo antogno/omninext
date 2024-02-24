@@ -4,47 +4,52 @@ import env from '../config/env';
 import dynamoDbClient from '../config/database';
 import { StatusCodes } from 'http-status-codes';
 import { v4 as uuidv4 } from 'uuid';
+import errorResponse from '../responses/errorResponse';
+import successResponse from '../responses/successResponse';
+import failResponse from '../responses/failResponse';
 
 export const handler = async (
 	event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
 	const { name, surname, username } = JSON.parse(event.body ?? '{}');
 
-	if (!name || !surname || !username) {
-		return {
-			statusCode: StatusCodes.BAD_REQUEST,
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify({ error: 'Missing required fields' }),
-		};
+	const missingFields: { [k: string]: string } = {};
+
+	if (!name) {
+		missingFields.name = 'A name is required';
 	}
 
-	const id = uuidv4();
+	if (!surname) {
+		missingFields.surname = 'A surname is required';
+	}
+
+	if (!username) {
+		missingFields.username = 'A username is required';
+	}
+
+	if (Object.keys(missingFields).length !== 0) {
+		return failResponse(missingFields);
+	}
+
+	const Item = {
+		id: uuidv4(),
+		name,
+		surname,
+		username,
+	};
 
 	const params = {
 		TableName: env.tableName,
-		Item: {
-			id,
-			name,
-			surname,
-			username,
-		},
+		Item,
 	};
 
 	try {
 		await dynamoDbClient.send(new PutCommand(params));
 
-		return {
-			statusCode: StatusCodes.CREATED,
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify({ id, name, surname, username }),
-		};
+		return successResponse(Item, StatusCodes.CREATED);
 	} catch (error) {
 		console.error(error);
 
-		return {
-			statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify({ error: 'Internal server error' }),
-		};
+		return errorResponse('Internal server error');
 	}
 };

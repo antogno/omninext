@@ -3,6 +3,9 @@ import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
 import env from '../config/env';
 import dynamoDbClient from '../config/database';
 import { StatusCodes } from 'http-status-codes';
+import errorResponse from '../responses/errorResponse';
+import failResponse from '../responses/failResponse';
+import successResponse from '../responses/successResponse';
 
 export const handler = async (
 	event: APIGatewayEvent
@@ -10,11 +13,7 @@ export const handler = async (
 	const id = event.pathParameters?.id;
 
 	if (!id) {
-		return {
-			statusCode: StatusCodes.BAD_REQUEST,
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify({ error: 'Missing ID' }),
-		};
+		return failResponse({ id: 'The ID is required' });
 	}
 
 	const params = {
@@ -30,25 +29,13 @@ export const handler = async (
 		if (Item) {
 			const { id, name, surname, username } = Item;
 
-			return {
-				statusCode: StatusCodes.OK,
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify({ id, name, surname, username }),
-			};
+			return successResponse({ id, name, surname, username });
 		} else {
-			return {
-				statusCode: StatusCodes.NOT_FOUND,
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify({ error: 'User not found' }),
-			};
+			return failResponse('User not found', StatusCodes.NOT_FOUND);
 		}
 	} catch (error) {
 		console.error(error);
 
-		return {
-			statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify({ error: 'Internal server error' }),
-		};
+		return errorResponse();
 	}
 };
