@@ -1,4 +1,4 @@
-# org: antogno
+# org: <name of your org>
 # app: omninext
 service: api
 frameworkVersion: '3'

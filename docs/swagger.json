@@ -1,0 +1,168 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Omninext",
+		"description": "Simple AWS Lambda REST API in Node.js with Serverless.",
+		"license": {
+			"name": "Creative Commons Zero v1.0 Universal",
+			"url": "https://github.com/antogno/omninext/blob/master/LICENSE"
+		},
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/api",
+			"description": "Dev"
+		},
+		{
+			"url": "https://tly366tykj.execute-api.us-east-1.amazonaws.com/api",
+			"description": "Prod"
+		}
+	],
+	"paths": {
+		"/getUserById/{id}": {
+			"get": {
+				"summary": "Get user",
+				"description": "Returns the user with the provided ID, if exists.",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the user to return",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": "uuid"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"example": {
+									"status": "success",
+									"data": {
+										"id": "d3198a02-289b-42e3-b723-e849471b4810",
+										"name": "Pinco",
+										"surname": "Pallino",
+										"username": "pincopallino"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"example": {
+									"status": "fail",
+									"data": {
+										"id": "The ID is required"
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found",
+						"content": {
+							"application/json": {
+								"example": {
+									"status": "fail",
+									"data": "User not found"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"example": {
+									"status": "error",
+									"message": "Internal server error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/createUser": {
+			"post": {
+				"summary": "Create user",
+				"description": "Creates a user with the provided data.",
+				"requestBody": {
+					"description": "User data",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"surname": {
+										"type": "string"
+									},
+									"username": {
+										"type": "string"
+									}
+								},
+								"required": ["name", "surname", "username"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"example": {
+									"status": "success",
+									"data": {
+										"id": "f28b8b4f-756a-4de6-891f-de59a3a9b6ad",
+										"name": "Pinco",
+										"surname": "Pallino",
+										"username": "pincopallino"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"example": {
+									"status": "fail",
+									"data": {
+										"name": "A name is required",
+										"surname": "A surname is required",
+										"username": "A username is required"
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"example": {
+									"status": "error",
+									"message": "Internal server error"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -14,9 +14,12 @@ Simple AWS Lambda REST API in Node.js with Serverless.
 
 - [Usage](#usage)
 - [Deploy](#deploy)
+- [Docs](#docs)
 - [License](#license)
 
 ## Usage
+
+You can access the API at [https://tly366tykj.execute-api.us-east-1.amazonaws.com](https://tly366tykj.execute-api.us-east-1.amazonaws.com).
 
 ### Pre-requisites
 
@@ -65,7 +68,7 @@ When asked about the default output format, you can type "json" or just press en
 $ npm run dev
 ```
 
-The API is now accessible in [localhost:3000](http://localhost:3000).
+The API is now accessible at [localhost:3000](http://localhost:3000).
 
 ## Deploy
 
@@ -91,6 +94,14 @@ $ npm run deploy
 ```
 
 Now you should be able to access the API through a URL similar to [https://tly366tykj.execute-api.us-east-1.amazonaws.com](https://tly366tykj.execute-api.us-east-1.amazonaws.com).
+
+## Docs
+
+```console
+$ npm run docs
+```
+
+The documentation is now accessible at [localhost:4000](http://localhost:4000).
 
 ## License
 

@@ -4,7 +4,7 @@ This is the Markdown TODO file for [Omninext](https://github.com/antogno/omninex
 
 ## Features
 
-- [ ] Add API documentation
+- [x] Add API documentation
 - [ ] Ensure username uniqueness
 
 ## Codebase
