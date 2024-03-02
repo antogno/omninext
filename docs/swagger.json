@@ -22,6 +22,7 @@
 	"paths": {
 		"/getUserById/{id}": {
 			"get": {
+				"tags": ["User"],
 				"summary": "Get user",
 				"description": "Returns the user with the provided ID, if exists.",
 				"parameters": [
@@ -93,11 +94,11 @@
 		},
 		"/createUser": {
 			"post": {
+				"tags": ["User"],
 				"summary": "Create user",
 				"description": "Creates a user with the provided data.",
 				"requestBody": {
 					"description": "User data",
-					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
@@ -116,10 +117,11 @@
 								"required": ["name", "surname", "username"]
 							}
 						}
-					}
+					},
+					"required": true
 				},
 				"responses": {
-					"200": {
+					"201": {
 						"description": "Successful response",
 						"content": {
 							"application/json": {
